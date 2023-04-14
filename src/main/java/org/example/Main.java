@@ -3,20 +3,21 @@ package org.example;
 import org.example.items.Item;
 import org.example.items.impl.A2Paper;
 import org.example.items.impl.A3Paper;
-import org.example.items.impl.A4Paper;
 import org.example.pictures.P4x3;
 import org.example.pictures.Picture;
 import org.example.printer.Printable;
 import org.example.printer.impl.Canon;
 import org.example.printer.impl.Hp;
+import org.example.user.ArmenianOperator;
+import org.example.user.Customer;
+import org.example.user.Operator;
+import org.example.user.User;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class Main {
 
@@ -66,6 +67,29 @@ public class Main {
 
         Collection<?> someCollection = new LinkedList<>();
 
+        List<Operator> allOperators = Arrays.asList(new Operator("tom"));
+        addUsersFromMarketingDepartment(allOperators);
+        List<User> allUsers = Arrays.asList(new Customer("tom"), new Operator("spencer"));
+
+//        addUsersFromMarketingDepartment(allUsers);
+
+        addUsersFromMarketingDepartmentFixed(allUsers);
+    }
+
+    private static void addUsersFromMarketingDepartmentFixed(List<? super Customer> users) {
+        users.add(new Customer("john doe"));
+        users.add(new Customer("jane doe"));
+    }
+
+    private static void addUsersFromMarketingDepartment(List<Operator> users) {
+        users.add(new Operator("john doe"));
+        users.add(new Operator("jane doe"));
+    }
+
+    public void sendEmailsFixed(List<? extends User> users) {
+        for (User user : users) {
+            System.out.println("sending email to " + user);
+        }
     }
 
     // TODO analyze <? extends T>   bounded wildcards
